@@ -11,7 +11,19 @@ tweetsRouter
 
 		res.status(data.status).send(data.message);
 	})
-	.get("/tweets")
-	.get("/tweets/:username");
+	.get("/tweets", (req, res) => {
+		const { page } = req.query;
+
+		const data = new TweetsController().getTweetsByOrder(page);
+
+		res.status(data.status).send(data.message);
+	})
+	.get("/tweets/:username", (req, res) => {
+		const { username } = req.params;
+
+		const data = new TweetsController().getTweetsByName(username);
+
+		res.status(data.status).send(data.message);
+	});
 
 export { tweetsRouter };
